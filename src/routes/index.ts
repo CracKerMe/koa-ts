@@ -1,4 +1,4 @@
-import homeController from './controller/home';
+import homeController from '../controllers/home';
 
 export default [
   {

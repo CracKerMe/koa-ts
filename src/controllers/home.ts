@@ -1,4 +1,4 @@
-import HomeService from '../service/home';
+import HomeService from '../services/home';
 
 class HomeController {
   private service: HomeService = new HomeService();
