@@ -7,6 +7,9 @@ import bodyParser from 'koa-bodyparser'
 import { PORT } from './config'
 import AppRoutes from './routes'
 
+import multer from '@koa/multer'
+const upload = multer({ dest: 'uploads/' })
+
 const app = new Koa()
 const router = new Router()
 // interface IHelloRequest {
@@ -17,8 +20,13 @@ const router = new Router()
 //   ctx.body = 'Hello World!'
 //   await next()
 // })
+// router.post('/upload/single', upload.single('banner'), async (ctx, next) => {
+//   console.log('ctx.file', ctx.file);
+//   ctx.body = 'Hello World!'
+//   await next()
+// })
 
-AppRoutes.forEach(route => (router as any)[route.method](route.path, route.action));
+AppRoutes.forEach(route => (router as any)[route.method](route.path, ...route.middlewares || [], route.action));
 
 app.use(bodyParser())
 app.use(Logger())
